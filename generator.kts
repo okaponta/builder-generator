@@ -10,6 +10,7 @@ data class Field(
         return when {
             nullable -> "null"
             type.contains("String") -> """"""""
+            type.contains("List") -> "listOf()"
             else -> "0"
         }
     }
@@ -21,7 +22,7 @@ var className = ""
 val classNameRegex = "data class (.*)\\(".toRegex()
 
 val fields = mutableListOf<Field>()
-val fieldRegex = ".*val (.*): (Byte|Byte\\?|Int|Int\\?|String|String\\?).*".toRegex()
+val fieldRegex = ".*val (.*):.*(Byte|Byte\\?|Int|Int\\?|String|String\\?).*".toRegex()
 
 val sc = Scanner(File(fileName))
 while (sc.hasNextLine()) {
